@@ -16,9 +16,11 @@ height = 32
 
 [node name="Bat" instance=ExtResource("1_aextr")]
 script = ExtResource("2_0ypbc")
+entity_name = "Bat"
+SPEED = 100.0
 
 [node name="Sprite" parent="." index="0"]
 texture = SubResource("GradientTexture2D_yp5rc")
 
-[node name="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_o4rec")

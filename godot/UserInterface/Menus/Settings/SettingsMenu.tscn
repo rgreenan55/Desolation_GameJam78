@@ -23,6 +23,11 @@ grow_vertical = 2
 theme = ExtResource("2_l5ka8")
 script = ExtResource("1_fo1no")
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15

@@ -17,10 +17,17 @@ extends Node
 
 func _ready() -> void:
 	DungeonManager.connect("trigger_transition", _on_room_transition);
+	DungeonManager.player = player;
+	DungeonManager.fairy = fairy;
 	
 func _on_room_transition(compass_direction : int) -> void:
 	var direction : Vector2 = RoomDoor.get_direction_vector(compass_direction);
-	player.get_node("StateMachine").on_child_transitioned(&"Locked");
+	
+	# Lock Movement
+	player.state_machine.on_child_transitioned(&"Locked");
+	for enemy in DungeonManager.enemies:
+		enemy.state_machine.on_child_transitioned(&"Locked");
+	DungeonManager.enemies.clear();
 	
 	# Update Global Room Position
 	DungeonManager.move_to_room(direction);
@@ -49,8 +56,11 @@ func _on_room_transition(compass_direction : int) -> void:
 	tween.tween_property(current_room, "position", current_room.position - room_size * direction, transition_speed);
 	await tween.finished;
 	
-	
+	# Free Movement
+	player.state_machine.on_child_transitioned(&"Free");
+	for enemy in DungeonManager.enemies:
+		enemy.state_machine.on_child_transitioned(&"Free");
+		
 	# Cleanup
-	player.get_node("StateMachine").on_child_transitioned(&"Free");
 	current_room.queue_free();
 	current_room = next_room;

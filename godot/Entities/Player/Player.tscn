@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://uv2vo00q0fta"]
+[gd_scene load_steps=10 format=3 uid="uid://uv2vo00q0fta"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_h10ge"]
-[ext_resource type="Texture2D" uid="uid://ock1ohuafrre" path="res://Entities/Player/Player.png" id="2_ud1hw"]
-[ext_resource type="Script" path="res://addons/StateMachine/StateMachine.gd" id="3_w33w1"]
+[ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity.tscn" id="1_l1va2"]
+[ext_resource type="Texture2D" uid="uid://ock1ohuafrre" path="res://Entities/Player/Assets/Player.png" id="2_ud1hw"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine/FreeState.gd" id="4_jw27w"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine/LockedState.gd" id="5_bh8gf"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine/IdleState.gd" id="6_ciram"]
@@ -12,54 +12,48 @@
 radius = 1.0
 height = 10.0
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1oah"]
+radius = 1.0
+height = 10.0
+
+[node name="Player" node_paths=PackedStringArray("state_machine") groups=["Player"] instance=ExtResource("1_l1va2")]
 collision_layer = 2
 script = ExtResource("1_h10ge")
+state_machine = NodePath("StateMachine")
+entity_name = "Player"
+damage = 1
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_ud1hw")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 15)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_v08lx")
 
-[node name="EnemyDetector" type="Area2D" parent="." groups=["Player"]]
+[node name="EnemyDetector" type="Area2D" parent="." index="3" groups=["Player"]]
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" index="0"]
 position = Vector2(0, 15)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_v08lx")
+shape = SubResource("CapsuleShape2D_f1oah")
 debug_color = Color(0.99395, 0, 0.2298, 0.42)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "parent", "animation_player")]
-script = ExtResource("3_w33w1")
+[node name="StateMachine" parent="." index="4" node_paths=PackedStringArray("current_state")]
 current_state = NodePath("Free")
-parent = NodePath("..")
-animation_player = NodePath("../AnimationPlayer")
 
-[node name="Free" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+[node name="Free" parent="StateMachine" index="0"]
 script = ExtResource("4_jw27w")
-parent = NodePath("../..")
-animations = NodePath("../../AnimationPlayer")
 
-[node name="Locked" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+[node name="Locked" parent="StateMachine" index="1"]
 script = ExtResource("5_bh8gf")
-parent = NodePath("../..")
-animations = NodePath("../../AnimationPlayer")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+[node name="Idle" parent="StateMachine" index="3"]
 script = ExtResource("6_ciram")
-parent = NodePath("../..")
-animations = NodePath("../../AnimationPlayer")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+[node name="Attack" parent="StateMachine" index="4"]
 script = ExtResource("7_2vxgm")
-parent = NodePath("../..")
-animations = NodePath("../../AnimationPlayer")
 
 [connection signal="body_entered" from="EnemyDetector" to="StateMachine/Free" method="_on_enemy_detector_body_entered"]

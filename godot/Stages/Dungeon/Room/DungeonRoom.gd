@@ -1,6 +1,14 @@
 class_name DungeonRoom extends Node2D
 
-@onready var enemy_storage: Node2D = $EnemyStorage
+@onready var enemy_storage: Node2D = $EnemyStorage;
+
+@onready var player_combat_position: Node2D = $CombatPositions/PlayerPosition;
+@onready var enemy_combat_positions : Array[Node2D] = [
+	$CombatPositions/EnemyPosition1,
+	$CombatPositions/EnemyPosition2,
+	$CombatPositions/EnemyPosition3,
+	$CombatPositions/EnemyPosition4
+];
 
 func _ready() -> void:
 	_setup_room(DungeonManager.get_current_room());
@@ -18,30 +26,29 @@ func _setup_room(room_data : Dictionary) -> void:
 		"Boss": pass;
 		
 func _handle_enemy_spawns(enemies : Array[Dictionary]) -> void:
-	for enemy_data in enemies:
+	for i in range(enemies.size()):
+		var enemy_data : Dictionary = enemies[i];
 		var enemy : Enemy = load(enemy_data.node_path).instantiate();
+		DungeonManager.add_enemy(enemy);
 		enemy.position = enemy_data.position;
+		enemy.combat_position = enemy_combat_positions[i].position;
 		enemy_storage.add_child(enemy);
 #endregion
 
 #region Combat Stuff
-@onready var player_position: Node2D = $FightPositions/PlayerPosition
-@onready var enemy_positions : Array[Node2D] = [
-	$FightPositions/EnemyPosition1,
-	$FightPositions/EnemyPosition2,
-	$FightPositions/EnemyPosition3,
-	$FightPositions/EnemyPosition4
-]
-
 func _initate_combat() -> void:
-	var tween : Tween = create_tween();
-	tween.set_parallel(true);
-	tween.tween_property(get_node("Player"), "position", player_position.position, 1);
+	# Player
+	var player : Player = DungeonManager.player
+	player.combat_position = player_combat_position.position;
+	player.move_to_combat_position();
+	CombatManager.add_to_turn_order(player);
+	# Enemies
 	var enemy_nodes : Array[Node] = enemy_storage.get_children();
-	for i in range(enemy_nodes.size()):
-		tween.tween_property(enemy_nodes[i], "position", enemy_positions[i].position, 1);
+	for enemy in enemy_nodes:
+		enemy.move_to_combat_position();
+		CombatManager.add_to_turn_order(enemy);
+	# Initiate Combat
 	CombatManager.combat_is_ready();
-	
 #endregion
 
 #region Door Stuff

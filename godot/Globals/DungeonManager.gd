@@ -35,3 +35,14 @@ func get_current_room() -> Dictionary:
 
 @warning_ignore("unused_signal")
 signal trigger_transition(direction);
+
+@export var player : Player;
+@export var fairy : Fairy;
+@export var enemies : Array[Enemy] = [];
+
+signal enemy_added(enemy : Enemy);
+
+func add_enemy(enemy : Enemy) -> void:
+	enemies.push_back(enemy);
+	enemy_added.emit(enemy);
+	

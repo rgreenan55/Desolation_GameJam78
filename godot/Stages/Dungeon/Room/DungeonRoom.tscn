@@ -137,24 +137,24 @@ transition_direction = 3
 shape = SubResource("RectangleShape2D_x8g0m")
 disabled = true
 
-[node name="FightPositions" type="Node2D" parent="."]
+[node name="CombatPositions" type="Node2D" parent="."]
 
-[node name="PlayerPosition" type="Node2D" parent="FightPositions"]
+[node name="PlayerPosition" type="Node2D" parent="CombatPositions"]
 position = Vector2(196, 197)
 
-[node name="EnemyPosition1" type="Node2D" parent="FightPositions"]
+[node name="EnemyPosition1" type="Node2D" parent="CombatPositions"]
 position = Vector2(394, 138)
 
-[node name="EnemyPosition2" type="Node2D" parent="FightPositions"]
+[node name="EnemyPosition2" type="Node2D" parent="CombatPositions"]
 position = Vector2(411, 242)
 
-[node name="EnemyPosition3" type="Node2D" parent="FightPositions"]
+[node name="EnemyPosition3" type="Node2D" parent="CombatPositions"]
 position = Vector2(485, 131)
 
-[node name="EnemyPosition4" type="Node2D" parent="FightPositions"]
+[node name="EnemyPosition4" type="Node2D" parent="CombatPositions"]
 position = Vector2(496, 233)
 
-[node name="BossPosition" type="Node2D" parent="FightPositions"]
+[node name="BossPosition" type="Node2D" parent="CombatPositions"]
 position = Vector2(446, 188)
 
 [node name="EnemyStorage" type="Node2D" parent="."]

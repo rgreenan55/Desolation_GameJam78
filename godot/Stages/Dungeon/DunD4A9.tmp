@@ -33,8 +33,10 @@ room_template = ExtResource("2_qmvwj")
 [node name="UserInterfaces" type="Node" parent="."]
 
 [node name="GameOverlay" type="CanvasLayer" parent="UserInterfaces"]
+visible = false
 
 [node name="MapUI" parent="UserInterfaces/GameOverlay" instance=ExtResource("2_37ljg")]
+visible = false
 
 [node name="CombatUI" parent="UserInterfaces/GameOverlay" instance=ExtResource("6_fsi5r")]
 visible = false
