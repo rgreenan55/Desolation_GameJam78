@@ -1,0 +1,265 @@
+[gd_scene load_steps=6 format=3 uid="uid://cou8h07pmd32c"]
+
+[ext_resource type="Script" path="res://UserInterface/Menus/Settings/SettingsMenu.gd" id="1_fo1no"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="2_l5ka8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hv3si"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_akmv1"]
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_yntjs"]
+font_size = 10
+
+[node name="SettingsMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_l5ka8")
+script = ExtResource("1_fo1no")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_l5ka8")
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+current_tab = 1
+
+[node name="Gameplay" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Gameplay"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Gameplay" type="VBoxContainer" parent="MarginContainer/TabContainer/Gameplay/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_l5ka8")
+
+[node name="Video" type="MarginContainer" parent="MarginContainer/TabContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Video"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="Video" type="VBoxContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_l5ka8")
+
+[node name="WindowMode" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="WindowModeLabel" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/WindowMode"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+text = "Window Mode"
+
+[node name="WindowModeSelect" type="OptionButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/WindowMode"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+theme_override_font_sizes/font_size = 8
+
+[node name="Resolution" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="ResolutionLabel" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Resolution"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+text = "Resolution"
+
+[node name="ResolutionSelect" type="OptionButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Resolution"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+
+[node name="Vsync" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="VsyncLabel" type="Label" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Vsync"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+text = "V-Sync"
+
+[node name="VsyncCheck" type="CheckButton" parent="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Vsync"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Audio" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Audio"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Audio" type="VBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_l5ka8")
+
+[node name="MasterContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MasterContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+text = "Master Volume"
+label_settings = SubResource("LabelSettings_hv3si")
+
+[node name="Slider" type="HBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MasterContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="MasterVolume" type="HSlider" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MasterContainer/Slider"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+step = 5.0
+tick_count = 3
+
+[node name="Spacer" type="Control" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MasterContainer/Slider"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="EffectContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/EffectContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+text = "Effect Volume"
+label_settings = SubResource("LabelSettings_akmv1")
+
+[node name="Slider" type="HBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/EffectContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="EffectVolume" type="HSlider" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/EffectContainer/Slider"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+step = 5.0
+tick_count = 3
+
+[node name="Spacer" type="Control" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/EffectContainer/Slider"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="MusicContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="Label" type="Label" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MusicContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+text = "Music Volume"
+label_settings = SubResource("LabelSettings_yntjs")
+
+[node name="Slider" type="HBoxContainer" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MusicContainer"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="MusicVolume" type="HSlider" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MusicContainer/Slider"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_l5ka8")
+step = 5.0
+tick_count = 3
+
+[node name="Spacer" type="Control" parent="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MusicContainer/Slider"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 128.0
+offset_top = 88.0
+offset_right = 184.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_l5ka8")
+theme_override_font_sizes/font_size = 8
+text = "Exit
+"
+
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/WindowMode/WindowModeSelect" to="." method="_on_window_mode_selected"]
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Resolution/ResolutionSelect" to="." method="_on_resolution_selected"]
+[connection signal="gui_input" from="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Vsync" to="." method="_on_vsync_gui_input"]
+[connection signal="toggled" from="MarginContainer/TabContainer/Video/ScrollContainer/MarginContainer/Video/Vsync/VsyncCheck" to="." method="_on_vsync_check_toggled"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MasterContainer/Slider/MasterVolume" to="." method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/EffectContainer/Slider/EffectVolume" to="." method="_on_effect_volume_value_changed"]
+[connection signal="value_changed" from="MarginContainer/TabContainer/Audio/ScrollContainer/Audio/MusicContainer/Slider/MusicVolume" to="." method="_on_music_volume_value_changed"]

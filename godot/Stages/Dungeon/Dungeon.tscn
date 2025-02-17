@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://dstocfub1bgta"]
+
+[ext_resource type="Script" path="res://Stages/Dungeon/Dungeon.gd" id="1_7x3l4"]
+[ext_resource type="PackedScene" uid="uid://dkodkb2i5556" path="res://UserInterface/Game/Map/MapUI.tscn" id="2_37ljg"]
+[ext_resource type="PackedScene" uid="uid://dyqweufur46la" path="res://Stages/Dungeon/Room/DungeonRoom.tscn" id="2_qmvwj"]
+[ext_resource type="PackedScene" uid="uid://mc21sl15rpko" path="res://Entities/Player/Fairy/Fairy.tscn" id="4_3qmni"]
+[ext_resource type="PackedScene" uid="uid://uv2vo00q0fta" path="res://Entities/Player/Player.tscn" id="4_4kyi2"]
+[ext_resource type="Script" path="res://Stages/Dungeon/RoomTransition.gd" id="5_jewaa"]
+[ext_resource type="PackedScene" uid="uid://bndab5kdcxfp0" path="res://UserInterface/Game/Combat/CombatUI.tscn" id="6_fsi5r"]
+[ext_resource type="PackedScene" uid="uid://kksuissonhgt" path="res://UserInterface/Menus/Pause/PauseOverlay.tscn" id="6_yi1nq"]
+
+[node name="Dungeon" type="Node2D"]
+script = ExtResource("1_7x3l4")
+
+[node name="DungeonRoom" parent="." instance=ExtResource("2_qmvwj")]
+
+[node name="Player" parent="DungeonRoom" instance=ExtResource("4_4kyi2")]
+position = Vector2(320, 180)
+
+[node name="Fairy" parent="DungeonRoom" instance=ExtResource("4_3qmni")]
+position = Vector2(120, 101)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Utilities" type="Node" parent="."]
+
+[node name="RoomTransition" type="Node" parent="Utilities"]
+process_mode = 3
+script = ExtResource("5_jewaa")
+room_template = ExtResource("2_qmvwj")
+
+[node name="UserInterfaces" type="Node" parent="."]
+
+[node name="GameOverlay" type="CanvasLayer" parent="UserInterfaces"]
+visible = false
+
+[node name="MapUI" parent="UserInterfaces/GameOverlay" instance=ExtResource("2_37ljg")]
+visible = false
+
+[node name="CombatUI" parent="UserInterfaces/GameOverlay" instance=ExtResource("6_fsi5r")]
+visible = false
+
+[node name="PauseOverlay" parent="UserInterfaces" instance=ExtResource("6_yi1nq")]
+visible = false

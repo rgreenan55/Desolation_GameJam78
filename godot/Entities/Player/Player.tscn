@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://uv2vo00q0fta"]
+
+[ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_h10ge"]
+[ext_resource type="Texture2D" uid="uid://ock1ohuafrre" path="res://Entities/Player/Player.png" id="2_ud1hw"]
+[ext_resource type="Script" path="res://addons/StateMachine/StateMachine.gd" id="3_w33w1"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/FreeState.gd" id="4_jw27w"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/LockedState.gd" id="5_bh8gf"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/IdleState.gd" id="6_ciram"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/AttackState.gd" id="7_2vxgm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v08lx"]
+radius = 1.0
+height = 10.0
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+script = ExtResource("1_h10ge")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ud1hw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_v08lx")
+
+[node name="EnemyDetector" type="Area2D" parent="." groups=["Player"]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+position = Vector2(0, 15)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_v08lx")
+debug_color = Color(0.99395, 0, 0.2298, 0.42)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "parent", "animation_player")]
+script = ExtResource("3_w33w1")
+current_state = NodePath("Free")
+parent = NodePath("..")
+animation_player = NodePath("../AnimationPlayer")
+
+[node name="Free" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("4_jw27w")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Locked" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("5_bh8gf")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("6_ciram")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("7_2vxgm")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[connection signal="body_entered" from="EnemyDetector" to="StateMachine/Free" method="_on_enemy_detector_body_entered"]

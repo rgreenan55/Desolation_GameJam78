@@ -1,0 +1,165 @@
+[gd_scene load_steps=14 format=3 uid="uid://dyqweufur46la"]
+
+[ext_resource type="Script" path="res://Stages/Dungeon/Room/DungeonRoom.gd" id="1_cxaxn"]
+[ext_resource type="Script" path="res://Stages/Dungeon/Room/RoomDoor.gd" id="2_3qggd"]
+[ext_resource type="Texture2D" uid="uid://c1r1npi84snnc" path="res://Stages/Dungeon/Room/Assets/Floor.png" id="2_yehhr"]
+[ext_resource type="Texture2D" uid="uid://x8gad6rlppuq" path="res://Stages/Dungeon/Room/Assets/NorthSouthWall.png" id="3_buexv"]
+[ext_resource type="Texture2D" uid="uid://ckl7d12yf86k" path="res://Stages/Dungeon/Room/Assets/EastWestWall.png" id="4_hemn6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tgtrs"]
+size = Vector2(640, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w56al"]
+size = Vector2(48, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58log"]
+size = Vector2(640, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm04l"]
+size = Vector2(48, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f31pf"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buuij"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6305"]
+size = Vector2(40, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8g0m"]
+size = Vector2(40, 40)
+
+[node name="DungeonRoom" type="Node2D"]
+z_index = -1
+script = ExtResource("1_cxaxn")
+
+[node name="Textures" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite2D" parent="Textures"]
+texture = ExtResource("2_yehhr")
+offset = Vector2(320, 180)
+
+[node name="NorthWall" type="Sprite2D" parent="Textures"]
+texture = ExtResource("3_buexv")
+offset = Vector2(320, 90)
+vframes = 2
+
+[node name="EastWall" type="Sprite2D" parent="Textures"]
+texture = ExtResource("4_hemn6")
+offset = Vector2(480, 180)
+flip_h = true
+hframes = 2
+
+[node name="SouthWall" type="Sprite2D" parent="Textures"]
+texture = ExtResource("3_buexv")
+offset = Vector2(320, 270)
+flip_v = true
+vframes = 2
+
+[node name="WestWall" type="Sprite2D" parent="Textures"]
+texture = ExtResource("4_hemn6")
+offset = Vector2(160, 180)
+hframes = 2
+
+[node name="RoomWalls" type="Node2D" parent="."]
+
+[node name="NorthWall" type="StaticBody2D" parent="RoomWalls"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomWalls/NorthWall"]
+position = Vector2(320, 24)
+shape = SubResource("RectangleShape2D_tgtrs")
+debug_color = Color(0.650903, 0.44659, 0.700719, 0.42)
+
+[node name="EastWall" type="StaticBody2D" parent="RoomWalls"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomWalls/EastWall"]
+position = Vector2(616, 180)
+shape = SubResource("RectangleShape2D_w56al")
+debug_color = Color(0.650903, 0.44659, 0.700719, 0.42)
+
+[node name="SouthWall" type="StaticBody2D" parent="RoomWalls"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomWalls/SouthWall"]
+position = Vector2(320, 336)
+shape = SubResource("RectangleShape2D_58log")
+debug_color = Color(0.650903, 0.44659, 0.700719, 0.42)
+
+[node name="WestWall" type="StaticBody2D" parent="RoomWalls"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomWalls/WestWall"]
+position = Vector2(24, 180)
+shape = SubResource("RectangleShape2D_vm04l")
+debug_color = Color(0.650903, 0.44659, 0.700719, 0.42)
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="NorthDoor" type="Area2D" parent="Doors"]
+position = Vector2(320, 35)
+collision_mask = 2
+script = ExtResource("2_3qggd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/NorthDoor"]
+shape = SubResource("RectangleShape2D_f31pf")
+disabled = true
+
+[node name="EastDoor" type="Area2D" parent="Doors"]
+position = Vector2(605, 180)
+collision_mask = 2
+script = ExtResource("2_3qggd")
+transition_direction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/EastDoor"]
+shape = SubResource("RectangleShape2D_buuij")
+disabled = true
+
+[node name="SouthDoor" type="Area2D" parent="Doors"]
+position = Vector2(320, 325)
+collision_mask = 2
+script = ExtResource("2_3qggd")
+transition_direction = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/SouthDoor"]
+shape = SubResource("RectangleShape2D_c6305")
+disabled = true
+
+[node name="WestDoor" type="Area2D" parent="Doors"]
+position = Vector2(35, 180)
+collision_mask = 2
+script = ExtResource("2_3qggd")
+transition_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors/WestDoor"]
+shape = SubResource("RectangleShape2D_x8g0m")
+disabled = true
+
+[node name="FightPositions" type="Node2D" parent="."]
+
+[node name="PlayerPosition" type="Node2D" parent="FightPositions"]
+position = Vector2(196, 197)
+
+[node name="EnemyPosition1" type="Node2D" parent="FightPositions"]
+position = Vector2(394, 138)
+
+[node name="EnemyPosition2" type="Node2D" parent="FightPositions"]
+position = Vector2(411, 242)
+
+[node name="EnemyPosition3" type="Node2D" parent="FightPositions"]
+position = Vector2(485, 131)
+
+[node name="EnemyPosition4" type="Node2D" parent="FightPositions"]
+position = Vector2(496, 233)
+
+[node name="BossPosition" type="Node2D" parent="FightPositions"]
+position = Vector2(446, 188)
+
+[node name="EnemyStorage" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="Doors/NorthDoor" to="Doors/NorthDoor" method="_on_body_entered"]
+[connection signal="body_entered" from="Doors/EastDoor" to="Doors/EastDoor" method="_on_body_entered"]
+[connection signal="body_entered" from="Doors/SouthDoor" to="Doors/SouthDoor" method="_on_body_entered"]
+[connection signal="body_entered" from="Doors/WestDoor" to="Doors/WestDoor" method="_on_body_entered"]

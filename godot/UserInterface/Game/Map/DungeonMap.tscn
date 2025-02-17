@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=3 uid="uid://uyqfvv583gx2"]
+
+[ext_resource type="Script" path="res://UserInterface/Game/Map/DungeonMap.gd" id="1_cvrgf"]
+[ext_resource type="Script" path="res://UserInterface/Game/Map/MapCamera.gd" id="2_o0nqt"]
+
+[sub_resource type="Gradient" id="Gradient_vrocs"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.129558, 0.129558, 0.129558, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sabog"]
+gradient = SubResource("Gradient_vrocs")
+
+[sub_resource type="Gradient" id="Gradient_uqwg4"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pvlyf"]
+gradient = SubResource("Gradient_uqwg4")
+width = 32
+height = 32
+
+[node name="DungeonMap" type="Node2D"]
+script = ExtResource("1_cvrgf")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTexture" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_sabog")
+
+[node name="MapCamera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+script = ExtResource("2_o0nqt")
+
+[node name="RoomBase" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("GradientTexture2D_pvlyf")
+
+[node name="Hallways" type="Node2D" parent="."]
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interface" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Interface"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_bottom = 74.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CanvasLayer/Interface/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterButton" type="Button" parent="CanvasLayer/Interface/MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Center
+"
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/Interface/MarginContainer/ButtonContainer"]
+layout_mode = 2
+text = "Close"
+
+[connection signal="pressed" from="CanvasLayer/Interface/MarginContainer/ButtonContainer/CenterButton" to="MapCamera" method="center_on_room"]
+[connection signal="pressed" from="CanvasLayer/Interface/MarginContainer/ButtonContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,0 +1,30 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dv4jilwxn458m"]
+
+[ext_resource type="FontFile" uid="uid://ck3b6ngw5r2xe" path="res://UserInterface/Themes/PeaberryMono.woff2" id="1_70lgw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmw0u"]
+bg_color = Color(0, 0, 0, 0.588235)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ko7k"]
+bg_color = Color(0, 0, 0, 0.588235)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+default_font = ExtResource("1_70lgw")
+default_font_size = 10
+OptionButton/font_sizes/font_size = 8
+OptionButton/styles/normal = SubResource("StyleBoxFlat_gmw0u")
+PopupMenu/font_sizes/font_size = 8
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_0ko7k")
+TabContainer/constants/side_margin = 0
+TabContainer/font_sizes/font_size = 12
+VBoxContainer/constants/separation = 8

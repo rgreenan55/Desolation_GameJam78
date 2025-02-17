@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2sve2w64a5u2"]
+
+[ext_resource type="PackedScene" uid="uid://dto10tjtgte67" path="res://Entities/Enemies/Enemy.tscn" id="1_aextr"]
+[ext_resource type="Script" path="res://Entities/Enemies/Bat/Bat.gd" id="2_0ypbc"]
+
+[sub_resource type="Gradient" id="Gradient_jhi8c"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.246954, 0.0005066, 0.386914, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yp5rc"]
+gradient = SubResource("Gradient_jhi8c")
+width = 32
+height = 32
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o4rec"]
+
+[node name="Bat" instance=ExtResource("1_aextr")]
+script = ExtResource("2_0ypbc")
+
+[node name="Sprite" parent="." index="0"]
+texture = SubResource("GradientTexture2D_yp5rc")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_o4rec")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkodkb2i5556"]
+
+[ext_resource type="PackedScene" uid="uid://uyqfvv583gx2" path="res://UserInterface/Game/Map/DungeonMap.tscn" id="1_l7sax"]
+[ext_resource type="Script" path="res://UserInterface/Game/Map/MapUI.gd" id="1_w4ku8"]
+
+[node name="MapUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4ku8")
+
+[node name="ButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+
+[node name="ButtonConatiner" type="Control" parent="ButtonContainer"]
+layout_mode = 2
+
+[node name="MapButton" type="Button" parent="ButtonContainer/ButtonConatiner"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "Map"
+
+[node name="MapContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_right = 332.0
+offset_bottom = 192.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+
+[node name="MapViewportContainer" type="SubViewportContainer" parent="MapContainer"]
+layout_mode = 2
+
+[node name="MapViewport" type="SubViewport" parent="MapContainer/MapViewportContainer"]
+handle_input_locally = false
+size = Vector2i(320, 180)
+render_target_update_mode = 4
+
+[node name="DungeonMap" parent="MapContainer/MapViewportContainer/MapViewport" instance=ExtResource("1_l7sax")]
+
+[connection signal="pressed" from="ButtonContainer/ButtonConatiner/MapButton" to="." method="_on_map_button_pressed"]

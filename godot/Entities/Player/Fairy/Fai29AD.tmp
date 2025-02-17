@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://mc21sl15rpko"]
+
+[ext_resource type="Script" path="res://Entities/Player/Fairy/Fairy.gd" id="1_ans3f"]
+
+[sub_resource type="Gradient" id="Gradient_mh7od"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nh35p"]
+gradient = SubResource("Gradient_mh7od")
+width = 8
+height = 8
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oq12i"]
+radius = 0.01
+
+[node name="Fairy" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ans3f")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_nh35p")
+offset = Vector2(0, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oq12i")
+disabled = true

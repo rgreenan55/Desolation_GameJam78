@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://c52ylv07tcrbi"]
+
+[ext_resource type="Texture2D" uid="uid://psmev0y66nwg" path="res://UserInterface/Startup/SplashScreen/Art/78-Erase.png" id="1_2niqp"]
+[ext_resource type="Script" path="res://UserInterface/Startup/SplashScreen/SplashScreen.gd" id="1_3ewdg"]
+[ext_resource type="Texture2D" uid="uid://bse6nmuoy8axh" path="res://UserInterface/Startup/SplashScreen/Art/78-All-Cards.png" id="2_g6opn"]
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ewdg")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="SplashArt" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="SplashArt"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplashArt/Control"]
+layout_mode = 2
+offset_left = -135.0
+offset_top = -110.0
+offset_right = 2565.0
+offset_bottom = 1964.0
+scale = Vector2(0.1, 0.1)
+theme_override_constants/separation = 100
+
+[node name="MainCard" type="TextureRect" parent="SplashArt/Control/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_2niqp")
+
+[node name="WildCards" type="TextureRect" parent="SplashArt/Control/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_g6opn")

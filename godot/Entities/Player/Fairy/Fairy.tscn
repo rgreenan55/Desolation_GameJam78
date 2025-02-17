@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://mc21sl15rpko"]
+
+[ext_resource type="Script" path="res://Entities/Player/Fairy/Fairy.gd" id="1_ans3f"]
+
+[sub_resource type="Gradient" id="Gradient_mh7od"]
+offsets = PackedFloat32Array(0, 0.701863, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nh35p"]
+gradient = SubResource("Gradient_mh7od")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oq12i"]
+radius = 0.01
+
+[sub_resource type="Gradient" id="Gradient_8y7f0"]
+offsets = PackedFloat32Array(0, 0.723602)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ndd80"]
+gradient = SubResource("Gradient_8y7f0")
+width = 240
+height = 240
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[node name="Fairy" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ans3f")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.125)
+texture = SubResource("GradientTexture2D_nh35p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oq12i")
+disabled = true
+
+[node name="Light" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_ndd80")
