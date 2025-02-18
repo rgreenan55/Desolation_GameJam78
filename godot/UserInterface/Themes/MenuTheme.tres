@@ -20,7 +20,7 @@ border_color = Color(1, 1, 1, 1)
 
 [resource]
 default_font = ExtResource("1_70lgw")
-default_font_size = 10
+default_font_size = 16
 OptionButton/font_sizes/font_size = 8
 OptionButton/styles/normal = SubResource("StyleBoxFlat_gmw0u")
 PopupMenu/font_sizes/font_size = 8

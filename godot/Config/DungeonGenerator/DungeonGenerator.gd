@@ -1,7 +1,7 @@
 class_name DungeonGenerator extends Resource
 
-var min_rooms : int = 15;
-var max_rooms : int = 20;
+var min_rooms : int = 12;
+var max_rooms : int = 15;
 
 var directions : Array[Vector2] = [ Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN];
 
@@ -92,7 +92,7 @@ func _generate_enemy_room(room : Dictionary, current_floor : int) -> void:
 func _get_enemy_layout(current_floor : int) -> Array[Dictionary]:
 	# TODO: Change this to randomly selecting enemy group
 	current_floor = current_floor;
-	var enemy_paths : Array[String] = ["res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn"];
+	var enemy_paths : Array[String] = ["res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn"];
 	var enemy_layout : Array[Dictionary] = [];
 	for enemy_path in enemy_paths:
 		var layout : Dictionary = { "node_path" : enemy_path };

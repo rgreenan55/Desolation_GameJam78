@@ -2,31 +2,27 @@ class_name Fairy extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite
 @onready var light: PointLight2D = $Light
+@onready var state_machine: StateMachine = $StateMachine
 
-@export var player : CharacterBody2D;
-const SPEED : int = 150;
+@export var player : Player;
+var SPEED : float = 150;
 const FLOAT_AMOUNT : float = 48.0
 
-var moving_toward_player : bool = false;
-
 func _ready() -> void:
-	(func(): player = get_node("../Player")).call_deferred();
+	connect_player.call_deferred();
 	_randomize_float();
-
-func _process(_delta: float) -> void:
-	if (player == null): return;
-	if (self.position.distance_to(player.position) > 50):
-		moving_toward_player = true;
-	elif (self.position.distance_to(player.position) < 25):
-		moving_toward_player = false;
 		
-func _physics_process(delta: float) -> void:
-	if (moving_toward_player):
-		var target_position : Vector2 = (player.position - self.position).normalized();
-		self.velocity = self.velocity.lerp(target_position * SPEED, delta * 8);
-	else:
-		self.velocity = self.velocity.lerp(Vector2.ZERO, delta * 4);
-	move_and_slide()
+func connect_player() -> void:
+	player = get_node("../Player")
+	player.connect("mimic_enemy", enter_mimic);
+
+func enter_combat() -> void:
+	state_machine.on_child_transitioned(&"Combat");
+func enter_mimic(enemy : Enemy) -> void:
+	state_machine.get_node("Mimic").target = enemy.position;
+	state_machine.on_child_transitioned(&"Mimic");
+func exit_combat() -> void:
+	state_machine.on_child_transitioned(&"Idle");
 	
 func _randomize_float() -> void:
 	var tween : Tween = create_tween();

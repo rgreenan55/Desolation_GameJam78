@@ -1,12 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://uv2vo00q0fta"]
+[gd_scene load_steps=8 format=3 uid="uid://uv2vo00q0fta"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_h10ge"]
 [ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity.tscn" id="1_l1va2"]
 [ext_resource type="Texture2D" uid="uid://ock1ohuafrre" path="res://Entities/Player/Assets/Player.png" id="2_ud1hw"]
-[ext_resource type="Script" path="res://Entities/Player/StateMachine/FreeState.gd" id="4_jw27w"]
-[ext_resource type="Script" path="res://Entities/Player/StateMachine/LockedState.gd" id="5_bh8gf"]
-[ext_resource type="Script" path="res://Entities/Player/StateMachine/IdleState.gd" id="6_ciram"]
-[ext_resource type="Script" path="res://Entities/Player/StateMachine/AttackState.gd" id="7_2vxgm"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/PlayerFree.gd" id="4_jw27w"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/PlayerCombat.gd" id="6_cw4io"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v08lx"]
 radius = 1.0
@@ -21,7 +19,7 @@ collision_layer = 2
 script = ExtResource("1_h10ge")
 state_machine = NodePath("StateMachine")
 entity_name = "Player"
-damage = 1
+attack_damage = 40
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource("2_ud1hw")
@@ -41,19 +39,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f1oah")
 debug_color = Color(0.99395, 0, 0.2298, 0.42)
 
-[node name="StateMachine" parent="." index="4" node_paths=PackedStringArray("current_state")]
-current_state = NodePath("Free")
-
 [node name="Free" parent="StateMachine" index="0"]
 script = ExtResource("4_jw27w")
 
-[node name="Locked" parent="StateMachine" index="1"]
-script = ExtResource("5_bh8gf")
-
-[node name="Idle" parent="StateMachine" index="3"]
-script = ExtResource("6_ciram")
-
-[node name="Attack" parent="StateMachine" index="4"]
-script = ExtResource("7_2vxgm")
+[node name="Combat" parent="StateMachine" index="3"]
+script = ExtResource("6_cw4io")
 
 [connection signal="body_entered" from="EnemyDetector" to="StateMachine/Free" method="_on_enemy_detector_body_entered"]

@@ -19,5 +19,4 @@ func Handle_Input(_event : InputEvent) -> void:
 
 func _on_enemy_detector_body_entered(body: Node2D) -> void:
 	if (body.is_in_group("Enemy")):
-		transitioned.emit(&"Idle");
 		CombatManager.initate_combat.emit();

@@ -46,3 +46,6 @@ func add_enemy(enemy : Enemy) -> void:
 	enemies.push_back(enemy);
 	enemy_added.emit(enemy);
 	
+func remove_enemy(enemy : Enemy) -> void:
+	enemies.remove_at(enemies.find(enemy));
+	

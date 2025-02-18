@@ -1,6 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://mc21sl15rpko"]
+[gd_scene load_steps=12 format=3 uid="uid://mc21sl15rpko"]
 
 [ext_resource type="Script" path="res://Entities/Player/Fairy/Fairy.gd" id="1_ans3f"]
+[ext_resource type="Script" path="res://addons/StateMachine/StateMachine.gd" id="2_bbs27"]
+[ext_resource type="Script" path="res://Entities/Player/Fairy/StateMachine/FairyIdle.gd" id="3_v6v78"]
+[ext_resource type="Script" path="res://Entities/Player/Fairy/StateMachine/FairyMoving.gd" id="4_ojaew"]
+[ext_resource type="Script" path="res://Entities/Player/Fairy/StateMachine/FairyCombat.gd" id="5_a1cbx"]
+[ext_resource type="Script" path="res://Entities/Player/Fairy/StateMachine/FairyMimic.gd" id="6_vuiul"]
 
 [sub_resource type="Gradient" id="Gradient_mh7od"]
 offsets = PackedFloat32Array(0, 0.701863, 1)
@@ -42,3 +47,24 @@ disabled = true
 
 [node name="Light" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_ndd80")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "parent")]
+script = ExtResource("2_bbs27")
+current_state = NodePath("Idle")
+parent = NodePath("..")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent")]
+script = ExtResource("3_v6v78")
+parent = NodePath("../..")
+
+[node name="Moving" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent")]
+script = ExtResource("4_ojaew")
+parent = NodePath("../..")
+
+[node name="Combat" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent")]
+script = ExtResource("5_a1cbx")
+parent = NodePath("../..")
+
+[node name="Mimic" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent")]
+script = ExtResource("6_vuiul")
+parent = NodePath("../..")

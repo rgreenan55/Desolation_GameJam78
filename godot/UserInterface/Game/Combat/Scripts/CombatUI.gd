@@ -18,7 +18,3 @@ func add_enemy_card(enemy : Enemy):
 	var enemy_card : EntityCard = ENTITY_CARD.instantiate();
 	enemy_card.connect_to_entity(enemy);
 	enemy_cards.add_child(enemy_card);
-
-
-func _on_special_pressed() -> void:
-	pass # Replace with function body.

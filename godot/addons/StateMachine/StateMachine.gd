@@ -67,7 +67,7 @@ func on_child_transitioned(new_state_name : StringName) -> void:
 		new_state.Enter();
 		current_state = new_state;
 	else:
-		push_warning(self.name, ": called transition on state that does not exist");
+		push_warning(self.name, ": called transition on state that does not exist (", new_state_name, ")");
 
 # Configuration Warnings
 func _get_configuration_warnings() -> PackedStringArray:

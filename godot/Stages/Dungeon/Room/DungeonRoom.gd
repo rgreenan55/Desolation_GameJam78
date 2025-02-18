@@ -41,12 +41,9 @@ func _initate_combat() -> void:
 	var player : Player = DungeonManager.player
 	player.combat_position = player_combat_position.position;
 	player.move_to_combat_position();
-	CombatManager.add_to_turn_order(player);
 	# Enemies
 	var enemy_nodes : Array[Node] = enemy_storage.get_children();
-	for enemy in enemy_nodes:
-		enemy.move_to_combat_position();
-		CombatManager.add_to_turn_order(enemy);
+	for enemy in enemy_nodes: enemy.move_to_combat_position();
 	# Initiate Combat
 	CombatManager.combat_is_ready();
 #endregion

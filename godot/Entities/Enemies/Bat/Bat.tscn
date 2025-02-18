@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2sve2w64a5u2"]
+[gd_scene load_steps=7 format=3 uid="uid://c2sve2w64a5u2"]
 
 [ext_resource type="PackedScene" uid="uid://dto10tjtgte67" path="res://Entities/Enemies/Enemy.tscn" id="1_aextr"]
 [ext_resource type="Script" path="res://Entities/Enemies/Bat/Bat.gd" id="2_0ypbc"]
+[ext_resource type="Script" path="res://addons/StateMachine/State.gd" id="3_gn4e1"]
 
 [sub_resource type="Gradient" id="Gradient_jhi8c"]
 offsets = PackedFloat32Array(0)
@@ -24,3 +25,13 @@ texture = SubResource("GradientTexture2D_yp5rc")
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_o4rec")
+
+[node name="Idle" type="Node" parent="StateMachine" index="3" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("3_gn4e1")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Attack" type="Node" parent="StateMachine" index="4" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("3_gn4e1")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")

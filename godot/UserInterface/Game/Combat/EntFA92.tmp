@@ -1,0 +1,106 @@
+[gd_scene load_steps=11 format=3 uid="uid://1nardbrdhkhv"]
+
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="1_1ikoq"]
+[ext_resource type="Script" path="res://UserInterface/Game/Combat/Scripts/EntityCard.gd" id="1_8lfmc"]
+[ext_resource type="Shader" uid="uid://x5atv72kuu5o" path="res://UserInterface/Game/Combat/Assets/Dissolve.tres" id="1_lon3p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7o03"]
+render_priority = 0
+shader = ExtResource("1_lon3p")
+shader_parameter/Speed = 1.0
+
+[sub_resource type="Gradient" id="Gradient_remxc"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dt7c7"]
+gradient = SubResource("Gradient_remxc")
+width = 32
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_3r2c4"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c5rhe"]
+gradient = SubResource("Gradient_3r2c4")
+width = 32
+height = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuajb"]
+bg_color = Color(0.875303, 0.0184463, 9.62615e-08, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dla5n"]
+bg_color = Color(0.31549, 0.706495, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="EntityCard" type="MarginContainer"]
+material = SubResource("ShaderMaterial_e7o03")
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_8lfmc")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_dt7c7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+texture = SubResource("GradientTexture2D_c5rhe")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("1_1ikoq")
+theme_override_font_sizes/font_size = 16
+text = "Entity Name"
+
+[node name="Health" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_cuajb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dla5n")
+step = 1.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/Health"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_right = 110.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_1ikoq")
+theme_override_font_sizes/font_size = 16
+text = "100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
