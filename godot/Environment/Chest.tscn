@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bargpilv4rooc"]
+
+[ext_resource type="PackedScene" uid="uid://pcfvxye1sgnu" path="res://Environment/Interactable/Interactable.tscn" id="1_qniu3"]
+[ext_resource type="Script" path="res://Environment/Chest.gd" id="2_eyeqq"]
+[ext_resource type="Texture2D" uid="uid://dcisqtxsufn64" path="res://Environment/Assets/Chest.png" id="3_grv8d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jumo6"]
+radius = 2.0
+height = 28.0
+
+[node name="Chest" instance=ExtResource("1_qniu3")]
+script = ExtResource("2_eyeqq")
+ref = {}
+opened = false
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_grv8d")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 14)
+shape = SubResource("CapsuleShape2D_jumo6")
+
+[node name="CollisionShape2D" parent="InteractableArea" index="0"]
+disabled = true

@@ -137,6 +137,9 @@ transition_direction = 3
 shape = SubResource("RectangleShape2D_x8g0m")
 disabled = true
 
+[node name="ChestPosition" type="Node2D" parent="."]
+position = Vector2(320, 180)
+
 [node name="CombatPositions" type="Node2D" parent="."]
 
 [node name="PlayerPosition" type="Node2D" parent="CombatPositions"]

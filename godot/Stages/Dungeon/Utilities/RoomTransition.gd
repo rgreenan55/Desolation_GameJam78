@@ -6,16 +6,16 @@ extends Node
 @onready var dungeon : Node2D = $"../..";
 
 # Room Management
-@onready var player : CharacterBody2D = $"../../DungeonRoom/Player";
-@onready var fairy: Fairy = $"../../DungeonRoom/Fairy";
-@onready var current_room : DungeonRoom = $"../../DungeonRoom";
+@export var player : CharacterBody2D;
+@export var fairy: Fairy;
+@onready var current_room : DungeonRoom;
 @onready var next_room : DungeonRoom = null;
 
 # Transition Values
 @onready var transition_speed : float = 0.50;
 @onready var room_size : Vector2 = dungeon.get_viewport_rect().size;
 
-func _ready() -> void:
+func setup() -> void:
 	DungeonManager.connect("trigger_transition", _on_room_transition);
 	DungeonManager.player = player;
 	DungeonManager.fairy = fairy;

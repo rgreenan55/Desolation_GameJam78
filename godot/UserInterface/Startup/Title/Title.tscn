@@ -1,6 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://c24lfbtes5mqx"]
+[gd_scene load_steps=8 format=3 uid="uid://c24lfbtes5mqx"]
 
 [ext_resource type="Script" path="res://UserInterface/Startup/Title/Title.gd" id="1_bqdvn"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="2_q8kjv"]
+
+[sub_resource type="Gradient" id="Gradient_s2ujb"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jqf46"]
+gradient = SubResource("Gradient_s2ujb")
+
+[sub_resource type="Gradient" id="Gradient_ek3hi"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nek8x"]
+gradient = SubResource("Gradient_ek3hi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c0fwx"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(320, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -1.0
+radial_accel_max = 0.999998
+damping_min = 5.0
+damping_max = 5.0
+scale_min = 0.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_nek8x")
 
 [node name="Title" type="Control"]
 layout_mode = 3
@@ -18,6 +49,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = SubResource("GradientTexture2D_jqf46")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(320, 375)
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_c0fwx")
+lifetime = 3.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,7 +66,7 @@ offset_top = -90.0
 offset_right = 224.0
 grow_vertical = 0
 theme_override_constants/margin_left = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -36,10 +74,12 @@ theme_override_constants/separation = 12
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_q8kjv")
 text = "Play"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_q8kjv")
 text = "Exit"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

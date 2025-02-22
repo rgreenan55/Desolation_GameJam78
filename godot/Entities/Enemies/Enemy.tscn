@@ -1,19 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://dto10tjtgte67"]
+[gd_scene load_steps=9 format=3 uid="uid://dto10tjtgte67"]
 
 [ext_resource type="Script" path="res://Entities/Enemies/Enemy.gd" id="1_2wg10"]
-[ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity.tscn" id="1_kd3vu"]
+[ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity/Entity.tscn" id="1_kd3vu"]
+[ext_resource type="Shader" path="res://Entities/Enemies/Assets/Monochrome.gdshader" id="3_1q2dr"]
 [ext_resource type="Script" path="res://Entities/Enemies/StateMachine/EnemyFree.gd" id="3_cgw21"]
+[ext_resource type="Script" path="res://Entities/Enemies/StateMachine/EnemyCombat.gd" id="5_m6ds3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs2u1"]
+resource_local_to_scene = true
+shader = ExtResource("3_1q2dr")
+shader_parameter/greyscaleIntensity = 1.0
+shader_parameter/greyscalePerentage = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y06up"]
 
-[node name="Enemy" node_paths=PackedStringArray("state_machine") groups=["Enemy"] instance=ExtResource("1_kd3vu")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_efk5o"]
+radius = 24.0
+
+[node name="Enemy" groups=["Enemy"] instance=ExtResource("1_kd3vu")]
 collision_layer = 4
 script = ExtResource("1_2wg10")
-state_machine = NodePath("StateMachine")
+attack_defend_percentage = 35
 entity_name = "Enemy"
+
+[node name="Sprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_xs2u1")
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("CircleShape2D_y06up")
 
+[node name="StateMachine" parent="." index="3" node_paths=PackedStringArray("current_state")]
+current_state = NodePath("Free")
+
 [node name="Free" parent="StateMachine" index="0"]
 script = ExtResource("3_cgw21")
+
+[node name="Combat" parent="StateMachine" index="3"]
+script = ExtResource("5_m6ds3")
+
+[node name="EnemyArea" type="Area2D" parent="." index="4" groups=["Enemy"]]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea" index="0"]
+shape = SubResource("CircleShape2D_efk5o")

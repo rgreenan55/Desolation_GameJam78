@@ -4,17 +4,15 @@ class_name Fairy extends CharacterBody2D
 @onready var light: PointLight2D = $Light
 @onready var state_machine: StateMachine = $StateMachine
 
-@export var player : Player;
+@export var player : Player :
+	set(value):
+		player = value;
+		player.connect("mimic_enemy", enter_mimic);
 var SPEED : float = 150;
 const FLOAT_AMOUNT : float = 48.0
 
 func _ready() -> void:
-	connect_player.call_deferred();
 	_randomize_float();
-		
-func connect_player() -> void:
-	player = get_node("../Player")
-	player.connect("mimic_enemy", enter_mimic);
 
 func enter_combat() -> void:
 	state_machine.on_child_transitioned(&"Combat");

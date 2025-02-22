@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://jr2k2bwmjy68"]
+
+[ext_resource type="PackedScene" uid="uid://dto10tjtgte67" path="res://Entities/Enemies/Enemy.tscn" id="1_i2g16"]
+[ext_resource type="Shader" path="res://Entities/Enemies/Assets/Monochrome.gdshader" id="2_7ekhf"]
+[ext_resource type="Script" path="res://Entities/Enemies/SlimeBoss.gd" id="2_n5ne2"]
+[ext_resource type="Texture2D" uid="uid://dnbqbqk7i1re5" path="res://Entities/Enemies/Assets/SlimeBoss.png" id="4_x1iap"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_062if"]
+resource_local_to_scene = true
+shader = ExtResource("2_7ekhf")
+shader_parameter/greyscaleIntensity = 1.0
+shader_parameter/greyscalePerentage = 1.0
+
+[node name="SlimeBoss" instance=ExtResource("1_i2g16")]
+script = ExtResource("2_n5ne2")
+ref = {}
+entity_name = ""
+attack_damage = 25
+base_defence = 10
+total_health = 200
+
+[node name="Sprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_062if")
+texture = ExtResource("4_x1iap")
+offset = Vector2(0, -10)

@@ -1,0 +1,186 @@
+[gd_scene load_steps=12 format=3 uid="uid://bj4ijrmoissxy"]
+
+[ext_resource type="PackedScene" uid="uid://cradqw1gswf7b" path="res://Environment/Buildings/Building.tscn" id="1_c1mub"]
+[ext_resource type="Texture2D" uid="uid://dvqv2jm22gbri" path="res://Environment/Buildings/Blacksmith.png" id="2_0sg28"]
+[ext_resource type="Shader" path="res://Entities/Enemies/Assets/Monochrome.gdshader" id="2_njro6"]
+[ext_resource type="Script" path="res://UserInterface/Game/Player/ShopUI.gd" id="3_3u547"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="4_gblo3"]
+[ext_resource type="Texture2D" uid="uid://u6k4bikvql6c" path="res://UserInterface/Game/Player/Assets/Gold.png" id="5_pjcv0"]
+[ext_resource type="Texture2D" uid="uid://b226twskcr73t" path="res://UserInterface/Game/Player/Assets/Souls.png" id="6_6350m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nmqmi"]
+shader = ExtResource("2_njro6")
+shader_parameter/greyscaleIntensity = 1.0
+shader_parameter/greyscalePerentage = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mhfp"]
+size = Vector2(142, 66)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rwul7"]
+radius = 23.0
+height = 214.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_1w27d"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="BlacksmithBuilding" instance=ExtResource("1_c1mub")]
+y_sort_enabled = true
+
+[node name="Sprite2D" parent="." index="0"]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_nmqmi")
+position = Vector2(0, 65)
+texture = ExtResource("2_0sg28")
+offset = Vector2(0, -65)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-40, 36)
+rotation = 0.0
+shape = SubResource("RectangleShape2D_3mhfp")
+
+[node name="CollisionShape2D" parent="InteractableArea" index="0"]
+position = Vector2(0, 66)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rwul7")
+
+[node name="RestoreUI" type="CanvasLayer" parent="." index="3"]
+visible = false
+
+[node name="CenterContainer" type="CenterContainer" parent="RestoreUI" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RestoreUI/CenterContainer" index="0"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RestoreUI/CenterContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="RestoreUI/CenterContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "Cost"
+label_settings = SubResource("LabelSettings_1w27d")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="RestoreUI/CenterContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "   5"
+label_settings = SubResource("LabelSettings_1w27d")
+
+[node name="TextureRect2" type="TextureRect" parent="RestoreUI/CenterContainer/VBoxContainer/HBoxContainer" index="2"]
+layout_mode = 2
+texture = ExtResource("6_6350m")
+
+[node name="Button" type="Button" parent="RestoreUI/CenterContainer/VBoxContainer" index="1"]
+layout_mode = 2
+text = "Restore"
+
+[node name="ShopUI" type="CanvasLayer" parent="." index="4"]
+visible = false
+script = ExtResource("3_3u547")
+
+[node name="CenterContainer" type="CenterContainer" parent="ShopUI" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/CenterContainer" index="0"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "Cost"
+label_settings = SubResource("LabelSettings_1w27d")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label3" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "10"
+label_settings = SubResource("LabelSettings_1w27d")
+
+[node name="TextureRect" type="TextureRect" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+texture = ExtResource("5_pjcv0")
+
+[node name="Label2" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="2"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "   5"
+label_settings = SubResource("LabelSettings_1w27d")
+
+[node name="TextureRect2" type="TextureRect" parent="ShopUI/CenterContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="3"]
+layout_mode = 2
+texture = ExtResource("6_6350m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Health" type="VBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="HealthButton" type="Button" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Health" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Health"
+
+[node name="Label" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Health" index="1"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "Level: 0"
+label_settings = SubResource("LabelSettings_1w27d")
+horizontal_alignment = 1
+
+[node name="Attack" type="VBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Attack" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Attack"
+
+[node name="Label" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Attack" index="1"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "Level: 0"
+label_settings = SubResource("LabelSettings_1w27d")
+horizontal_alignment = 1
+
+[node name="Defence" type="VBoxContainer" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="DefenceButton" type="Button" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Defence" index="0"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Defence"
+
+[node name="Label" type="Label" parent="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Defence" index="1"]
+layout_mode = 2
+theme = ExtResource("4_gblo3")
+text = "Level: 0"
+label_settings = SubResource("LabelSettings_1w27d")
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="InteractableArea" to="." method="_on_interactable_area_area_entered"]
+[connection signal="area_exited" from="InteractableArea" to="." method="_on_interact_area_area_exited"]
+[connection signal="pressed" from="RestoreUI/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Health/HealthButton" to="ShopUI" method="_on_health_button_pressed"]
+[connection signal="pressed" from="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Attack/AttackButton" to="ShopUI" method="_on_attack_button_pressed"]
+[connection signal="pressed" from="ShopUI/CenterContainer/VBoxContainer/HBoxContainer/Defence/DefenceButton" to="ShopUI" method="_on_defence_button_pressed"]

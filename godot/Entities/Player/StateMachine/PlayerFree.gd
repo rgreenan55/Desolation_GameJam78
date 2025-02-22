@@ -17,6 +17,6 @@ func Physics_Process(_delta : float) -> void:
 func Handle_Input(_event : InputEvent) -> void:
 	pass;
 
-func _on_enemy_detector_body_entered(body: Node2D) -> void:
-	if (body.is_in_group("Enemy")):
+func _on_area_detector_area_entered(area: Area2D) -> void:
+	if (area.is_in_group("Enemy")):
 		CombatManager.initate_combat.emit();

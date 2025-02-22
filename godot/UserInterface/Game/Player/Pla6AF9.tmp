@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfss7nn5q4gcv"]
+
+[ext_resource type="Script" path="res://UserInterface/Game/Player/PlayerUI.gd" id="1_6rftf"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="1_xdm7p"]
+[ext_resource type="LabelSettings" uid="uid://bfqjx6su46w3j" path="res://UserInterface/Game/Combat/Assets/LabelSettings.tres" id="2_0wjhw"]
+[ext_resource type="Texture2D" uid="uid://u6k4bikvql6c" path="res://UserInterface/Game/Player/Assets/Gold.png" id="3_vctxt"]
+[ext_resource type="Texture2D" uid="uid://b226twskcr73t" path="res://UserInterface/Game/Player/Assets/Souls.png" id="4_w80jr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv2l1"]
+bg_color = Color(1, 0.415357, 0.434928, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrbwy"]
+bg_color = Color(0.589081, 0.84913, 0.424419, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="PlayerUI" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_6rftf")
+
+[node name="Splitter" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Health" type="ProgressBar" parent="Splitter"]
+custom_minimum_size = Vector2(160, 16)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_bv2l1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wrbwy")
+value = 75.0
+show_percentage = false
+
+[node name="Divider" type="Control" parent="Splitter"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Resources" type="VBoxContainer" parent="Splitter"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GoldContainer" type="HBoxContainer" parent="Splitter/Resources"]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="Splitter/Resources/GoldContainer"]
+layout_mode = 2
+theme = ExtResource("1_xdm7p")
+theme_override_font_sizes/font_size = 16
+text = "000"
+label_settings = ExtResource("2_0wjhw")
+vertical_alignment = 1
+
+[node name="Gold" type="TextureRect" parent="Splitter/Resources/GoldContainer"]
+layout_mode = 2
+texture = ExtResource("3_vctxt")
+
+[node name="SoulsContainer" type="HBoxContainer" parent="Splitter/Resources"]
+layout_mode = 2
+
+[node name="SoulsLabel" type="Label" parent="Splitter/Resources/SoulsContainer"]
+layout_mode = 2
+theme = ExtResource("1_xdm7p")
+theme_override_font_sizes/font_size = 16
+text = "000"
+label_settings = ExtResource("2_0wjhw")
+vertical_alignment = 1
+
+[node name="Souls" type="TextureRect" parent="Splitter/Resources/SoulsContainer"]
+layout_mode = 2
+texture = ExtResource("4_w80jr")

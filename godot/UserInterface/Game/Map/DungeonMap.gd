@@ -15,6 +15,10 @@ func _ready() -> void:
 
 func draw_map() -> void:
 	var dungeon = DungeonManager.dungeon_floor;
+	
+	for room in rooms.get_children(): room.queue_free();
+	for hallway in hallways.get_children(): hallway.queue_free();
+	
 	if (dungeon == null): return;
 	
 	for room_pos in dungeon.keys():

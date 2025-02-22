@@ -1,6 +1,7 @@
 class_name DungeonRoom extends Node2D
 
 @onready var enemy_storage: Node2D = $EnemyStorage;
+@onready var chest_position: Node2D = $ChestPosition
 
 @onready var player_combat_position: Node2D = $CombatPositions/PlayerPosition;
 @onready var enemy_combat_positions : Array[Node2D] = [
@@ -9,6 +10,7 @@ class_name DungeonRoom extends Node2D
 	$CombatPositions/EnemyPosition3,
 	$CombatPositions/EnemyPosition4
 ];
+@onready var boss_position: Node2D = $CombatPositions/BossPosition
 
 func _ready() -> void:
 	_setup_room(DungeonManager.get_current_room());
@@ -22,17 +24,34 @@ func _setup_room(room_data : Dictionary) -> void:
 	var room_type : String = room_data.room_type;
 	match (room_type):
 		"Enemy": _handle_enemy_spawns(room_data.enemies);
-		"Chest": pass;
-		"Boss": pass;
+		"Chest": _handle_chest_spawn(room_data.chest);
+		"Boss": _handle_boss_spawn(room_data.enemy_data);
 		
 func _handle_enemy_spawns(enemies : Array[Dictionary]) -> void:
 	for i in range(enemies.size()):
 		var enemy_data : Dictionary = enemies[i];
+		if (enemy_data.alive == false): continue;
 		var enemy : Enemy = load(enemy_data.node_path).instantiate();
+		enemy.ref = enemy_data;
 		DungeonManager.add_enemy(enemy);
 		enemy.position = enemy_data.position;
 		enemy.combat_position = enemy_combat_positions[i].position;
 		enemy_storage.add_child(enemy);
+		
+func _handle_chest_spawn(chest_data : Dictionary) -> void:
+	var chest : Chest = load("res://Environment/Chest.tscn").instantiate();
+	chest.position = chest_position.position;
+	chest.opened = chest_data.opened;
+	chest.ref = chest_data;
+	add_child(chest);
+	
+func _handle_boss_spawn(boss_data) -> void:
+	var boss : SlimeBoss = load("res://Entities/Enemies/SlimeBoss.tscn").instantiate();
+	boss.ref = boss_data;
+	DungeonManager.add_enemy(boss);
+	boss.combat_position = boss_position.position;
+	boss.position = boss_data.position;
+	enemy_storage.add_child(boss);
 #endregion
 
 #region Combat Stuff

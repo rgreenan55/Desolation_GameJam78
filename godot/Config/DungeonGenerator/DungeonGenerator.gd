@@ -42,6 +42,7 @@ func generate(current_floor : int) -> Dictionary:
 	# Apply Boss Room
 	dungeon[boss_pos].room_type = "Boss";
 	dungeon[boss_pos].boss_distance = 0;
+	dungeon[boss_pos].enemy_data = { "position" : Vector2(640, 360) / 2, "alive" : true }
 	
 	# Apply Key Room
 	var key_pos : Vector2 = boss_pos;
@@ -66,6 +67,7 @@ func generate(current_floor : int) -> Dictionary:
 			if (room["room_type"] != "Empty" || room["distance"] < 2): continue;
 			if (randi_range(0, 100) > 50):
 				room["room_type"] = "Chest";
+				room["chest"] = { "opened" : false }
 				remaining_chest_rooms -= 1;
 			if (remaining_chest_rooms == 0): break;
 
@@ -86,16 +88,17 @@ func _generate_enemy_room(room : Dictionary, current_floor : int) -> void:
 	var enemies : Array[Dictionary] = _get_enemy_layout(current_floor);
 	room["enemies"] = enemies;
 	
-#func _generate_chest_room(room : Dictionary, current_floor : int) -> void:
-	#pass;
-
 func _get_enemy_layout(current_floor : int) -> Array[Dictionary]:
 	# TODO: Change this to randomly selecting enemy group
 	current_floor = current_floor;
-	var enemy_paths : Array[String] = ["res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn", "res://Entities/Enemies/Bat/Bat.tscn"];
+	var enemy_paths : Array[String] = [
+		"res://Entities/Enemies/Bat.tscn",
+		"res://Entities/Enemies/Spike.tscn"
+	];
 	var enemy_layout : Array[Dictionary] = [];
 	for enemy_path in enemy_paths:
 		var layout : Dictionary = { "node_path" : enemy_path };
 		layout.position = Vector2(640, 360) / 2 + Vector2(randi_range(-192, 192), randi_range(-36, 36));
+		layout.alive = true;
 		enemy_layout.push_back(layout);
 	return enemy_layout;

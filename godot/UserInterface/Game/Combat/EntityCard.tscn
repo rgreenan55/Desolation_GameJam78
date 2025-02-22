@@ -36,15 +36,23 @@ gradient = SubResource("Gradient_3r2c4")
 width = 32
 height = 32
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuajb"]
-bg_color = Color(0.875303, 0.0184463, 9.62615e-08, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bv2l1"]
+bg_color = Color(1, 0.415357, 0.434928, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dla5n"]
-bg_color = Color(0.31549, 0.706495, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrbwy"]
+bg_color = Color(0.589081, 0.84913, 0.424419, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -83,7 +91,7 @@ theme_override_constants/margin_bottom = 8
 use_parent_material = true
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="InfoContainer/HBoxContainer"]
+[node name="EntityTexture" type="TextureRect" parent="InfoContainer/HBoxContainer"]
 use_parent_material = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -114,8 +122,8 @@ use_parent_material = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_cuajb")
-theme_override_styles/fill = SubResource("StyleBoxFlat_dla5n")
+theme_override_styles/background = SubResource("StyleBoxFlat_bv2l1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wrbwy")
 step = 1.0
 value = 100.0
 show_percentage = false

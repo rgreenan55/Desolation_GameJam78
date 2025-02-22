@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsuar8wsmeoiw"]
+
+[ext_resource type="PackedScene" uid="uid://pcfvxye1sgnu" path="res://Environment/Interactable/Interactable.tscn" id="1_blxuy"]
+[ext_resource type="Script" path="res://Environment/Escape/Escape.gd" id="2_5p21e"]
+[ext_resource type="Texture2D" uid="uid://cxxcumof5j6j6" path="res://Environment/Escape/Escape.png" id="3_jnhxd"]
+
+[sub_resource type="Gradient" id="Gradient_8y7f0"]
+offsets = PackedFloat32Array(0, 0.723602)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p4mi1"]
+gradient = SubResource("Gradient_8y7f0")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[node name="Escape" instance=ExtResource("1_blxuy")]
+script = ExtResource("2_5p21e")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_jnhxd")
+
+[node name="CollisionShape2D" parent="." index="1"]
+disabled = true
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="3"]
+texture = SubResource("GradientTexture2D_p4mi1")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=8 format=3 uid="uid://cihbtoepyiif8"]
+
+[ext_resource type="PackedScene" uid="uid://dto10tjtgte67" path="res://Entities/Enemies/Enemy.tscn" id="1_8qqcq"]
+[ext_resource type="Texture2D" uid="uid://db6no1vuq64hj" path="res://Entities/Enemies/Assets/Spike.png" id="2_hqlpm"]
+[ext_resource type="Script" path="res://Common/ActionModifiers/Defend/Thorns.gd" id="2_nu1fc"]
+[ext_resource type="Shader" path="res://Entities/Enemies/Assets/Monochrome.gdshader" id="3_pc02i"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hqaxb"]
+load_path = "res://.godot/imported/Spike.png-6a1f34f9ba108ddfcba0bc600a457cf2.ctex"
+
+[sub_resource type="Resource" id="Resource_43eq6"]
+script = ExtResource("2_nu1fc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ea1de"]
+resource_local_to_scene = true
+shader = ExtResource("3_pc02i")
+shader_parameter/greyscaleIntensity = 1.0
+shader_parameter/greyscalePerentage = 1.0
+
+[node name="Spike" instance=ExtResource("1_8qqcq")]
+entity_name = "Spike"
+ui_texture = SubResource("CompressedTexture2D_hqaxb")
+base_defence = 5
+defence_modifier = SubResource("Resource_43eq6")
+
+[node name="Sprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_ea1de")
+texture = ExtResource("2_hqlpm")

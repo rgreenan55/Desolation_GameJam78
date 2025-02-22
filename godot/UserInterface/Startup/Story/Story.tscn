@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://06ijik8lrk1t"]
+
+[ext_resource type="Script" path="res://UserInterface/Startup/Story/Story.gd" id="1_yu67f"]
+[ext_resource type="Texture2D" uid="uid://cmdvxarh2h2t" path="res://UserInterface/Startup/Story/Story.png" id="2_wfa0f"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="3_4icif"]
+
+[sub_resource type="Gradient" id="Gradient_vgcck"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yx1q5"]
+gradient = SubResource("Gradient_vgcck")
+
+[sub_resource type="LabelSettings" id="LabelSettings_mux5m"]
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kiy0o"]
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Story" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yu67f")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wfa0f")
+
+[node name="Black" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_yx1q5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="StoryText" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("3_4icif")
+theme_override_font_sizes/font_size = 32
+label_settings = SubResource("LabelSettings_mux5m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SkipText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -98.0
+offset_top = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("3_4icif")
+theme_override_font_sizes/font_size = 32
+text = "Press E to Skip"
+label_settings = SubResource("LabelSettings_kiy0o")
+horizontal_alignment = 1
+vertical_alignment = 1

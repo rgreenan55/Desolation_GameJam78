@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://rlqi3sld5g7k"]
+
+[ext_resource type="Script" path="res://UserInterface/Game/Player/PlayerUtility.gd" id="1_pvdcr"]
+[ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="2_8umhn"]
+
+[sub_resource type="Gradient" id="Gradient_u1nk5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3jgtb"]
+gradient = SubResource("Gradient_u1nk5")
+
+[node name="PlayerUtility" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_pvdcr")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_3jgtb")
+
+[node name="GameOverContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="GameOverText" type="Label" parent="GameOverContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("2_8umhn")
+theme_override_font_sizes/font_size = 40
+text = "You've passed out..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="ReturnToTown" type="Button" parent="GameOverContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_8umhn")
+text = "Return to Town"
+
+[node name="QuitToTitle" type="Button" parent="GameOverContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_8umhn")
+text = "Quit to Title"
+
+[connection signal="pressed" from="GameOverContainer/VBoxContainer/HBoxContainer/ReturnToTown" to="." method="_on_return_to_town_pressed"]
+[connection signal="pressed" from="GameOverContainer/VBoxContainer/HBoxContainer/QuitToTitle" to="." method="_on_quit_to_title_pressed"]

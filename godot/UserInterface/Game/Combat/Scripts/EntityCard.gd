@@ -2,6 +2,7 @@ class_name EntityCard extends MarginContainer
 
 # Utility
 @onready var name_label: Label = %NameLabel
+@onready var entity_texture: TextureRect = $InfoContainer/HBoxContainer/EntityTexture
 @onready var health_ui: ProgressBar = %HealthUI
 @onready var health_label: Label = %HealthLabel
 @onready var defence_label: Label = %DefenceLabel
@@ -9,9 +10,13 @@ class_name EntityCard extends MarginContainer
 func connect_to_entity(entity : Entity):
 	# Wait until ready
 	if (!self.is_node_ready()): await self.ready;
+	if (!entity.is_node_ready()): await entity.ready;
 	
 	# Update Basis
 	name_label.text = entity.entity_name;
+	if (entity.ui_texture):
+		if (entity is Enemy): entity_texture.scale.x = -1;
+		entity_texture.texture = entity.ui_texture;
 	update_health(entity.current_health, entity.total_health);
 	update_defence(entity.current_defence);
 	
@@ -29,9 +34,11 @@ func update_health(health : int, total : int) -> void:
 	
 func update_defence(defence : int) -> void:
 	defence_label.text = str(defence);
+
+func remove_card_instant() -> void:
+	self.queue_free();
 	
 func remove_card() -> void:
-	print("Removing");
 	var tween : Tween = create_tween()
 	tween.tween_property(self.material, "shader_parameter/DissolveValue", 1, 2);
 	await tween.finished;

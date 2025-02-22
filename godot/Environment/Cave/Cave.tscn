@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwil8wyff4utk"]
+
+[ext_resource type="Script" path="res://Environment/Cave/Cave.gd" id="1_qb4m7"]
+[ext_resource type="Texture2D" uid="uid://b03u3lac0bwl2" path="res://Environment/Cave/Cave.png" id="1_wu7h2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hjwhk"]
+radius = 13.0
+
+[node name="Cave" type="StaticBody2D"]
+script = ExtResource("1_qb4m7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wu7h2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-29, 19, -12, -17, 14, -17, 30, 20, 26, 23, 14, 2, -15, 2, -21, 14, -30, 20)
+
+[node name="CaveEnterArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaveEnterArea"]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_hjwhk")
+
+[connection signal="body_entered" from="CaveEnterArea" to="." method="_on_cave_enter_area_body_entered"]

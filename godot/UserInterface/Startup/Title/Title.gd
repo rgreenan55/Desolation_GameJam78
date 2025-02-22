@@ -1,9 +1,9 @@
 extends Control
 
-const DUNGEON = preload("res://Stages/Dungeon/Dungeon.tscn")
+const STORY = preload("res://UserInterface/Startup/Story/Story.tscn");
 
 func _on_play_button_pressed() -> void:
-	get_tree().change_scene_to_packed(DUNGEON)
+	get_tree().change_scene_to_packed(STORY)
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit();

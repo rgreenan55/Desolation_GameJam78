@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://pcfvxye1sgnu"]
+
+[ext_resource type="Script" path="res://Environment/Interactable/Interactable.gd" id="1_x0ty6"]
+[ext_resource type="Script" path="res://Environment/Interactable/InteractableArea.gd" id="2_8wayg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5juol"]
+radius = 4.0
+height = 28.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ep2wg"]
+radius = 64.0
+
+[node name="Interactable" type="StaticBody2D" groups=["Interactable"]]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_x0ty6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5juol")
+
+[node name="InteractableArea" type="Area2D" parent="." groups=["Interactable"]]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("2_8wayg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource("CircleShape2D_ep2wg")

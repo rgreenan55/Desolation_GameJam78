@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cradqw1gswf7b"]
+
+[ext_resource type="PackedScene" uid="uid://pcfvxye1sgnu" path="res://Environment/Interactable/Interactable.tscn" id="1_v5x8g"]
+[ext_resource type="Script" path="res://Environment/Buildings/Building.gd" id="1_y3osb"]
+
+[node name="Building" instance=ExtResource("1_v5x8g")]
+script = ExtResource("1_y3osb")
+restored = false
+restore_soul_cost = 5

@@ -12,9 +12,6 @@ signal dungeon_floor_generated;
 @export var dungeon_floor : Dictionary;
 @export var room_position : Vector2;
 
-func _ready() -> void:
-	generate_dungeon_floor();
-
 func generate_dungeon_floor() -> void:
 	dungeon_floor = dungeon_generator.generate(current_floor);
 	room_position = Vector2.ZERO;

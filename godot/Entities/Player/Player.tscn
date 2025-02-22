@@ -1,42 +1,111 @@
-[gd_scene load_steps=8 format=3 uid="uid://uv2vo00q0fta"]
+[gd_scene load_steps=16 format=3 uid="uid://uv2vo00q0fta"]
 
 [ext_resource type="Script" path="res://Entities/Player/Player.gd" id="1_h10ge"]
-[ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity.tscn" id="1_l1va2"]
+[ext_resource type="PackedScene" uid="uid://c4df4vccpw1kf" path="res://Entities/Entity/Entity.tscn" id="1_l1va2"]
 [ext_resource type="Texture2D" uid="uid://ock1ohuafrre" path="res://Entities/Player/Assets/Player.png" id="2_ud1hw"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine/PlayerFree.gd" id="4_jw27w"]
+[ext_resource type="Texture2D" uid="uid://ceys7y4iapvoq" path="res://Entities/Player/Assets/Player-Sheet.png" id="4_rf7ne"]
 [ext_resource type="Script" path="res://Entities/Player/StateMachine/PlayerCombat.gd" id="6_cw4io"]
+[ext_resource type="PackedScene" uid="uid://bfss7nn5q4gcv" path="res://UserInterface/Game/Player/PlayerUI.tscn" id="6_xvnbt"]
+[ext_resource type="Script" path="res://Entities/Player/StateMachine/GameOver.gd" id="7_ry68x"]
+[ext_resource type="PackedScene" uid="uid://rlqi3sld5g7k" path="res://UserInterface/Game/Player/PlayerUtility.tscn" id="8_4b8vd"]
+
+[sub_resource type="Animation" id="Animation_by5t5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8yk36"]
+resource_name = "idle"
+length = 1.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_xwaxe"]
+resource_name = "moving"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_it37c"]
+_data = {
+"RESET": SubResource("Animation_by5t5"),
+"idle": SubResource("Animation_8yk36"),
+"moving": SubResource("Animation_xwaxe")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v08lx"]
 radius = 1.0
 height = 10.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1oah"]
-radius = 1.0
-height = 10.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n82t0"]
 
-[node name="Player" node_paths=PackedStringArray("state_machine") groups=["Player"] instance=ExtResource("1_l1va2")]
+[node name="Player" groups=["Player"] instance=ExtResource("1_l1va2")]
+y_sort_enabled = true
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_h10ge")
-state_machine = NodePath("StateMachine")
 entity_name = "Player"
-attack_damage = 40
+ui_texture = ExtResource("2_ud1hw")
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource("2_ud1hw")
+y_sort_enabled = true
+position = Vector2(0, 14)
+texture = ExtResource("4_rf7ne")
+offset = Vector2(0, -14)
+hframes = 6
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_it37c")
+}
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, 15)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_v08lx")
 
-[node name="EnemyDetector" type="Area2D" parent="." index="3" groups=["Player"]]
+[node name="AreaDetector" type="Area2D" parent="." index="3" groups=["Player"]]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 12
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" index="0"]
-position = Vector2(0, 15)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_f1oah")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDetector" index="0"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_n82t0")
 debug_color = Color(0.99395, 0, 0.2298, 0.42)
 
 [node name="Free" parent="StateMachine" index="0"]
@@ -45,4 +114,17 @@ script = ExtResource("4_jw27w")
 [node name="Combat" parent="StateMachine" index="3"]
 script = ExtResource("6_cw4io")
 
-[connection signal="body_entered" from="EnemyDetector" to="StateMachine/Free" method="_on_enemy_detector_body_entered"]
+[node name="GameOver" type="Node" parent="StateMachine" index="4" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("7_ry68x")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="PlayerUIContainer" type="CanvasLayer" parent="." index="5"]
+
+[node name="PlayerUI" parent="PlayerUIContainer" index="0" instance=ExtResource("6_xvnbt")]
+
+[node name="PlayerUtility" parent="PlayerUIContainer" index="1" instance=ExtResource("8_4b8vd")]
+
+[connection signal="area_entered" from="AreaDetector" to="StateMachine/Free" method="_on_area_detector_area_entered"]
+[connection signal="area_entered" from="AreaDetector" to="PlayerUIContainer/PlayerUI" method="_on_area_detector_area_entered"]
+[connection signal="area_exited" from="AreaDetector" to="PlayerUIContainer/PlayerUI" method="_on_area_detector_area_exited"]

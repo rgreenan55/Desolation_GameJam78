@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4df4vccpw1kf"]
+
+[ext_resource type="Script" path="res://Entities/Entity/StateMachine/Entity.gd" id="1_o7wsr"]
+[ext_resource type="Script" path="res://addons/StateMachine/StateMachine.gd" id="3_0xki2"]
+[ext_resource type="Script" path="res://addons/StateMachine/State.gd" id="4_a06s3"]
+[ext_resource type="Script" path="res://Entities/Entity/StateMachine/EnteringCombat.gd" id="5_uku3o"]
+
+[node name="Entity" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_o7wsr")
+attack_damage = 10
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent", "animation_player")]
+script = ExtResource("3_0xki2")
+parent = NodePath("..")
+animation_player = NodePath("../AnimationPlayer")
+
+[node name="Free" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("4_a06s3")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Locked" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("4_a06s3")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="EnteringCombat" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("5_uku3o")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
+
+[node name="Combat" type="Node" parent="StateMachine" node_paths=PackedStringArray("parent", "animations")]
+script = ExtResource("4_a06s3")
+parent = NodePath("../..")
+animations = NodePath("../../AnimationPlayer")
