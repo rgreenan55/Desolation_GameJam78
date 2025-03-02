@@ -27,6 +27,9 @@ func _ready() -> void:
 	# Gameplay
 	## Nothing
 
+	# Controls
+	
+
 	# Video
 	var WINDOW_MODES : Array[String] = SettingsManager.get_window_modes();
 	for window_mode in WINDOW_MODES: window_mode_select.add_item(window_mode);

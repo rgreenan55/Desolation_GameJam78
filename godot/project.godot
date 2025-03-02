@@ -64,6 +64,10 @@ Player=""
 Enemy=""
 Interactable=""
 
+[gui]
+
+theme/custom="res://UserInterface/Themes/MenuTheme.tres"
+
 [input]
 
 Pause={

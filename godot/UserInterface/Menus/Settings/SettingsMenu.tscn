@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cou8h07pmd32c"]
+[gd_scene load_steps=7 format=3 uid="uid://cou8h07pmd32c"]
 
 [ext_resource type="Script" path="res://UserInterface/Menus/Settings/SettingsMenu.gd" id="1_fo1no"]
 [ext_resource type="Theme" uid="uid://dv4jilwxn458m" path="res://UserInterface/Themes/MenuTheme.tres" id="2_l5ka8"]
+[ext_resource type="PackedScene" uid="uid://b2jcdbme8oxxc" path="res://UserInterface/Menus/Settings/Util/HotkeyRebindButton/HotkeyRebindButton.tscn" id="3_jxp7s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hv3si"]
 font_size = 10
@@ -13,7 +14,6 @@ font_size = 10
 font_size = 10
 
 [node name="SettingsMenu" type="Control"]
-process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,11 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_l5ka8")
 script = ExtResource("1_fo1no")
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -68,10 +63,45 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("2_l5ka8")
 
-[node name="Video" type="MarginContainer" parent="MarginContainer/TabContainer"]
+[node name="Controls" type="MarginContainer" parent="MarginContainer/TabContainer"]
 layout_mode = 2
 theme = ExtResource("2_l5ka8")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
 metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Controls"]
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/TabContainer/Controls/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_l5ka8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Controls/ScrollContainer/Controls"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HotkeyRebindButton" parent="MarginContainer/TabContainer/Controls/ScrollContainer/Controls/VBoxContainer" instance=ExtResource("3_jxp7s")]
+layout_mode = 2
+
+[node name="HotkeyRebindButton2" parent="MarginContainer/TabContainer/Controls/ScrollContainer/Controls/VBoxContainer" instance=ExtResource("3_jxp7s")]
+layout_mode = 2
+
+[node name="HotkeyRebindButton3" parent="MarginContainer/TabContainer/Controls/ScrollContainer/Controls/VBoxContainer" instance=ExtResource("3_jxp7s")]
+layout_mode = 2
+
+[node name="Video" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_l5ka8")
+metadata/_tab_index = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Video"]
 layout_mode = 2
@@ -148,7 +178,7 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 32
-metadata/_tab_index = 2
+metadata/_tab_index = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/TabContainer/Audio"]
 layout_mode = 2
